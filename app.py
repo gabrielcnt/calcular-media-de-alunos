@@ -1,0 +1,5 @@
+nome = str(input("Digite um nome: ")).strip().title()
+nota1 = float(input("Nota 1: ")).strip()
+nota2 = float(input("Nota 2: ")).strip()
+nota3 = float(input("Nota 3: ")).strip()
+nota4 = float(input("Nota 4: ")).strip()
