@@ -1,5 +1,6 @@
-#Lista vazia de alunos
+import pandas as pd
 
+#Lista vazia de alunos
 alunos = []
 
 while True:
@@ -27,7 +28,5 @@ while True:
     continuar = input("\nQuer adicionar outro aluno ? (S/N): ").upper()
     if continuar != 'S':
         break
-print("\n=== RESULTADO FINAL ===")
 
-for aluno in alunos:
-    print(f"A media de {aluno['nome']} é {aluno['media']:.1f}, {aluno['situacao']}")
+tabela_alunos = pd.DataFrame(alunos)
