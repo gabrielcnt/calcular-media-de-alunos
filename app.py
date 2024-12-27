@@ -1,4 +1,6 @@
 import pandas as pd
+import openpyxl
+from openpyxl.styles import Font
 
 #Lista vazia de alunos
 alunos = []
@@ -11,14 +13,14 @@ while True:
     nota4 = float(input("Nota 4: "))
 
     media = (nota1 + nota2 + nota3 + nota4) / 4
-    situacao = "APROVADO(A)" if media >= 7 else "REPROVADO(A)"
+    situacao = "Aprovado(a)" if media >= 7 else "Reprovado(a)"
 
 #guardar dados dos alunos em um dicionario
 
     aluno = {
-        "nome": nome,
-        "media": media,
-        "situacao": situacao
+        "Nome": nome,
+        "Media": media,
+        "Situacao": situacao
     }
 
     #adiciona aluno a lista
@@ -30,3 +32,28 @@ while True:
         break
 
 tabela_alunos = pd.DataFrame(alunos)
+
+#criando planilha
+book = openpyxl.Workbook()
+
+#criando uma pagina
+pag_alunos = book.active
+pag_alunos.title = "Alunos"
+
+#adicionando cabeçalho
+pag_alunos.append(["Nome", "Média", "Situação"])
+
+
+
+#adicionar dados a planilha
+for aluno in alunos:
+    pag_alunos.append([aluno["Nome"], aluno["Media"], aluno["Situacao"]])
+    
+    #aplicando cor base na situacao
+    if aluno["Situacao"] == "Aprovado(a)":
+        pag_alunos.cell(row=pag_alunos.max_row, column=3).font = Font(color="00FF00")
+    else:
+        pag_alunos.cell(row=pag_alunos.max_row, column=3).font = Font(color="FF0000")
+
+#salvar planilha
+book.save("planilha de alunos.xlsx")
